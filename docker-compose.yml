@@ -29,6 +29,16 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
+  web:
+    build: .
+    command: python src/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/ce
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+
 volumes:
   pgdata: {}
 #      - POSTGRES_PORT: 5432
