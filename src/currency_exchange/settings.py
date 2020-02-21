@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from celery.schedules import crontab
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
 
     'account',
+    'currency',
 ]
 
 MIDDLEWARE = [
@@ -148,7 +150,13 @@ LOGOUT_REDIRECT_URL = 'home'
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 
-
+CELERY_BEAT_SCHEDULE = {
+    'parse-rates': {
+        'task': 'currency.tasks.parse_rates',
+        #'schedule': crontab(minute='*/15'),
+        'schedule': crontab(minute='*/1'),
+    }
+}
 
 try:
     from currency_exchange.settings_local import *  # noqagit
