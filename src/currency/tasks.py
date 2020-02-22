@@ -35,38 +35,39 @@ def _pb(self):
                 new_rate.save()
 
 
-# def _mono(self):
-#     url = 'https://api.monobank.ua/bank/currency'
-#     response = requests.get(url)
-#     r_json = response.json()
-#
-#     for rate in r_json:
-#         if rate['currencyCodeA'] in {840, 978} and rate['currencyCodeB'] == 980:
-#             print(rate['currencyCodeA'], rate['rateSell'], rate['rateBuy'])
-#
-#             currency = {
-#                 '840': mch.CURR_USD,
-#                 '978': mch.CURR_EUR,
-#             }[rate['currencyCodeA']]
-#
-#             rate_kwargs = {
-#                 'currency': currency,
-#                 'buy': Decimal(rate['rateBuy']),
-#                 'sale': Decimal(rate['rateSell']),
-#                 'source': mch.SRC_MB,
-#             }
-#
-#             # Rate.objects.create(**rate_kwargs)
-#             new_rate = Rate.objects.create(**rate_kwargs)
-#             last_rate = Rate.objects.filter(currency=currency, source=mch.SRC_MB).last()
-#
-#             if last_rate is None or (new_rate.buy != last_rate.buy or new_rate.sale != last_rate.sale):
-#                 new_rate.save()
+def _mono(self):
+    url = 'https://api.monobank.ua/bank/currency'
+    response = requests.get(url)
+    r_json = response.json()
+
+    for rate in r_json:
+        if rate['currencyCodeA'] in {840, 978} and rate['currencyCodeB'] == 980:
+            # print(rate['currencyCodeA'], rate['rateSell'], rate['rateBuy'])
+
+            currency = {
+                '840': mch.CURR_USD,
+                '978': mch.CURR_EUR,
+            }[rate['currencyCodeA']]
+
+            rate_kwargs = {
+                'currency': currency,
+                'buy': round(Decimal(rate['rateBuy']), 2),
+                'sale': round(Decimal(rate['rateSell']), 2),
+                'source': mch.SRC_MB,
+            }
+
+            # Rate.objects.create(**rate_kwargs)
+            new_rate = Rate.objects.create(**rate_kwargs)
+            last_rate = Rate.objects.filter(currency=currency, source=mch.SRC_MB).last()
+
+            if last_rate is None or (new_rate.buy != last_rate.buy or new_rate.sale != last_rate.sale):
+                new_rate.save()
+
 
 @shared_task
-def parse_rate(self):
+def parse_rates(self):
     _pb()
-    # _mono()
+    _mono()
 
 
 
