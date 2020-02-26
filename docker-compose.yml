@@ -1,45 +1,92 @@
 version: "3"
 
 services:
+
+  # wsgi
+  backend:
+    build: .
+    command: python src/manage.py runserver 0:8000
+    container_name: backend
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ./:/srv/project
+    ports:
+      - "8000:8000"
+
+  celery:
+    build: .
+    command: /bin/bash ./commands/start_celery.sh
+    container_name: celery
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - rabbitmq
+      - postgres
+    volumes:
+      - ./:/srv/project
+
+  celerybeat:
+    build: .
+    command: celery -A currency_exchange beat -l info --workdir=/srv/project/src
+    container_name: celerybeat
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - rabbitmq
+      - postgres
+    volumes:
+      - ./:/srv/project
+
   rabbitmq:
     image: rabbitmq:3.8-rc-management
     container_name: rabbitmq
     restart: always
+    env_file:
+      - .env
     ports:
-      - "5672:5672"
       - "15672:15672"
 
   memcached:
     image: memcached:latest
     container_name: memcached
     restart: always
-    ports:
-      - "11211:11211"
+
 
   postgres:
     image: postgres:11.3
     container_name: postgres
     restart: always
     ports:
-#      - "5432:5432"
       - "5432:5432"
-    environment:
-      - POSTGRES_PASSWORD=123qwerty
-      - POSTGRES_USER=ce
-      - POSTGRES_DB=currency_exchange
+    env_file:
+      - .env
     volumes:
       - pgdata:/var/lib/postgresql/data
 
-  web:
-    build: .
-    command: python src/manage.py runserver 0.0.0.0:8000
+  nginx:
+    image: nginx:1.17.4-alpine
+    container_name: nginx
     volumes:
-      - .:/ce
+      - ./nginx:/etc/nginx/conf.d/
     ports:
-      - "8000:8000"
+      - "80:80"
+      - "443:443"
     depends_on:
-      - postgres
+      - backend
+
+#  web:
+#    build: .
+#    command: python src/manage.py runserver 0.0.0.0:8000
+#    volumes:
+#      - .:/ce
+#    ports:
+#      - "8000:8000"
+#    depends_on:
+#      - postgres
 
 volumes:
   pgdata: {}
-#      - POSTGRES_PORT: 5432
