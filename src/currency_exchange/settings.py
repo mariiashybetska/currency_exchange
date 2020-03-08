@@ -14,6 +14,8 @@ import os
 from celery.schedules import crontab
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from django.urls import reverse, reverse_lazy
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -41,7 +43,7 @@ INSTALLED_APPS = [
 
     'django_extensions',
     'debug_toolbar',
-    'django_celery_beat'
+    'django_celery_beat',
 
     'account',
     'currency',
@@ -98,12 +100,14 @@ CACHES = {
     }
 }
 
-BROKER_URL='ampq://{}:{}@{}:{}//'.format(
+BROKER_URL='amqp://{}:{}@{}:{}//'.format(
     os.environ['RABBITMQ_DEFAULT_USER'],
     os.environ['RABBITMQ_DEFAULT_PASSWORD'],
     os.environ['RABBITMQ_DEFAULT_HOST'],
     os.environ['RABBITMQ_DEFAULT_PORT'],
 )
+CELERY_BROKER_URL = BROKER_URL
+# print(BROKER_URL)
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -142,6 +146,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
 
 AUTH_USER_MODEL = 'account.User'
 
@@ -151,8 +158,8 @@ INTERNAL_IPS = [
     # ...
 ]
 
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = reverse_lazy('index')
+LOGOUT_REDIRECT_URL = reverse_lazy('index')
 
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
