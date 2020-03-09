@@ -1,7 +1,13 @@
-FROM python:3
-ENV PYTHONUNBUFFERED 1
-RUN mkdir /currency_exchange
-WORKDIR /currency_exchange
-COPY requirements.txt /currency_exchange
-RUN pip install -r requirements.txt
-COPY . /currency_exchange
+FROM python:3.7.6
+
+RUN apt-get update && apt-get install -y \
+    python-dev \
+    python-setuptools \
+    && apt-get clean \
+
+WORKDIR /srv/project
+
+COPY requirements.txt /tmp
+
+RUN pip install --upgrade pip
+RUN pip install -r /tmp/requirements.txt
