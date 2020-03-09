@@ -19,8 +19,8 @@ services:
 
   celery:
     build: .
-#    command: /bin/bash /srv/project/commands/start_celery.sh
-    command: celery -A currency_exchange worker -l info --workdir=/srv/project/src --pidfile=/srv/project/run/celery.pid
+    command: /bin/bash /srv/project/commands/start_celery.sh
+#    command: celery -A currency_exchange worker -l info --workdir=/srv/project/src --pidfile=/srv/project/run/celery.pid
 #    command: tail -f /dev/null
     container_name: celery
     restart: always
