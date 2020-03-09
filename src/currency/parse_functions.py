@@ -6,7 +6,7 @@ from currency import model_choices as mch
 from decimal import Decimal
 
 
-def _pb(self):
+def _pb(*args, **kwargs):
     url = 'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5'
     response = requests.get(url)
     r_json = response.json()
@@ -34,7 +34,7 @@ def _pb(self):
                 new_rate.save()
 
 
-def _mono(self):
+def _mono(*args, **kwargs):
     url = 'https://api.monobank.ua/bank/currency'
     response = requests.get(url)
     r_json = response.json()
@@ -44,8 +44,8 @@ def _mono(self):
             # print(rate['currencyCodeA'], rate['rateSell'], rate['rateBuy'])
 
             currency = {
-                '840': mch.CURR_USD,
-                '978': mch.CURR_EUR,
+                 840: mch.CURR_USD,
+                 978: mch.CURR_EUR,
             }[rate['currencyCodeA']]
 
             rate_kwargs = {
@@ -63,5 +63,27 @@ def _mono(self):
                 new_rate.save()
 
 
-def _vkurse():
-    pass
+def _vkurse(*args, **kwargs):
+    url = 'http://vkurse.dp.ua/course.json'
+    response = requests.get(url)
+    r_json = response.json()
+
+    for rate in r_json:
+        if rate in {'Dollar', 'Euro'}:
+            currency = {
+                'Dollar': mch.CURR_USD,
+                'Euro': mch.CURR_EUR
+            }[rate]
+            rate_kwargs = {
+                'currency': currency,
+                'buy': Decimal(r_json[rate]['buy'][:5]),
+                'sale': Decimal(r_json[rate]['sale'][:5]),
+                'source': mch.SRC_VK,
+            }
+
+            new_rate = Rate(**rate_kwargs)
+            last_rate = Rate.objects.filter(currency=currency, source=mch.SRC_VK).last()
+
+            if last_rate is None or (new_rate.buy != last_rate.buy or new_rate.sale != last_rate.sale):
+                new_rate.save()
+
