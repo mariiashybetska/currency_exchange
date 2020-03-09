@@ -33,5 +33,6 @@ class ContactUS(CreateView):
         subject = form.instance.title
         message = form.instance.body
         from_email = settings.EMAIL_HOST_USER
-        send_email_async.delay(subject, message, from_email)
+        recipient_list = [settings.EMAIL_HOST_USER]  # send e-mail to our own address
+        send_email_async.delay(subject, message, from_email, recipient_list)
         return super().form_valid(form)

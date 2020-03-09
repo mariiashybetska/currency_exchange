@@ -9,8 +9,8 @@ def debug_task(self):
 
 
 @shared_task
-def send_email_async(subject, message, email_from):
-    recipient_list = [settings.EMAIL_HOST_USER]  # send e-mail to our own address
+def send_email_async(subject, message, email_from, recipient_list):
+
     send_mail(subject, message,
               email_from, recipient_list,
               fail_silently=False)
