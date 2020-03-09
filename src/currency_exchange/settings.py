@@ -172,6 +172,7 @@ CELERY_BEAT_SCHEDULE = {
     }
 }
 
+
 try:
     from currency_exchange.settings_local import *  # noqagit
 except ImportError:
