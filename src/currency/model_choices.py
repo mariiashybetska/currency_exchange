@@ -9,5 +9,5 @@ SRC_PB, SRC_MB, SRC_VK = range(1, 4)
 SOURCE_CHOICES = (
     (SRC_PB, 'PrivatBank'),
     (SRC_MB, 'MonoBank'),
-    (SRC_VK, 'vkurse.dp.ua'),
+    (SRC_VK, 'Vkurse'),
 )
