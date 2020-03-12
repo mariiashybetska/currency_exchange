@@ -8,10 +8,9 @@ class RateListView(ListView):
     model = Rate
     template_name = 'rates.html'
     paginate_by = 20
+    ordering = ['-id']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        queryset = Rate.objects.all()
-        context['rates'] = queryset
         return context
 

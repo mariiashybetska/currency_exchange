@@ -3,6 +3,7 @@
 {% block title %}Latest Rates{% endblock title%}
 
 {% block content %}
+
 <table class="table table-striped">
   <thead>
     <tr>
@@ -17,7 +18,7 @@
   <tbody>
   {% for rate in object_list %}
     <tr>
-      <th scope="row"> {{ rate.created }} </th>
+      <th scope="row"> {{ rate.created }}  </th>
       <td> {{ rate.get_currency_display }} </td>
       <td> {{ rate.buy }} </td>
       <td> {{ rate.sale }} </td>
@@ -26,4 +27,5 @@
   {% endfor %}
   </tbody>
 </table>
+
 {% endblock content%}

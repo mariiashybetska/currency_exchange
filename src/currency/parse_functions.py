@@ -81,9 +81,48 @@ def _vkurse(*args, **kwargs):
                 'source': mch.SRC_VK,
             }
 
+
+
             new_rate = Rate(**rate_kwargs)
             last_rate = Rate.objects.filter(currency=currency, source=mch.SRC_VK).last()
 
             if last_rate is None or (new_rate.buy != last_rate.buy or new_rate.sale != last_rate.sale):
                 new_rate.save()
 
+
+
+def _mtb(*args, **kwargs):
+    import requests
+    from bs4 import BeautifulSoup
+
+    url = 'https://mtb.ua/'
+    r = requests.get(url)
+    soup = BeautifulSoup(r.content, 'html.parser')
+
+    usd_dictionary = dict()
+    eur_dictionary = dict()
+    class_buy_sell_dict = {'exchange-value tab-item active': 'Покупка',
+                           'exchange-value tab-item': 'Продажа'}
+
+    for class_name, buy_or_sell in class_buy_sell_dict.items():
+        buy_sell_curr = list(soup.findAll('div', attrs={'class': class_name}))[0]
+        # exchange-value_currency - name of currency
+        currencies = list(buy_sell_curr.findAll('div', attrs={'class': 'exchange-value_currency'}))
+
+        # Finding index with necessary currency
+        for i in range(len(currencies)):
+            curr = list(currencies)[i]
+            act_curr = curr.get_text().split()[0]
+
+            # exchange-value_num - exchange rate
+            if act_curr in ['USD', 'EUR']:
+                usd_index = i
+                usd_dictionary[buy_or_sell] = float(
+                    list(buy_sell_curr.findAll('span', attrs={'class': 'exchange-value_num'}))[
+                        usd_index].get_text().split()[0])
+
+            elif act_curr == 'EUR':
+                eur_index = i
+                eur_dictionary[buy_or_sell] = float(
+                    list(buy_sell_curr.findAll('span', attrs={'class': 'exchange-value_num'}))[
+                        eur_index].get_text().split()[0])
