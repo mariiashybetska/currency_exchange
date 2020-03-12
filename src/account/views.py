@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, View
 from django.conf import settings
 
 from account.models import User, Contact
@@ -22,6 +22,10 @@ class MyProfile(UpdateView):
     fields = ('email', )
     success_url = reverse_lazy('index')
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(id=self.request.user.id)
+
 
 class ContactUS(CreateView):
     model = Contact
@@ -36,3 +40,4 @@ class ContactUS(CreateView):
         recipient_list = [settings.EMAIL_HOST_USER]  # send e-mail to our own address
         send_email_async.delay(subject, message, from_email, recipient_list)
         return super().form_valid(form)
+
