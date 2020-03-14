@@ -10,7 +10,7 @@ class RateListView(ListView):
     model = Rate
     template_name = 'rates.html'
     paginate_by = 20
-    ordering = ['-id']
+    ordering = ['-created']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

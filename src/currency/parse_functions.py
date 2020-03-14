@@ -6,7 +6,7 @@ from currency import model_choices as mch
 from decimal import Decimal
 
 
-def _pb(*args, **kwargs):
+def _pb():
     url = 'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5'
     response = requests.get(url)
     r_json = response.json()
@@ -34,7 +34,7 @@ def _pb(*args, **kwargs):
                 new_rate.save()
 
 
-def _mono(*args, **kwargs):
+def _mono():
     url = 'https://api.monobank.ua/bank/currency'
     response = requests.get(url)
     r_json = response.json()
@@ -63,7 +63,7 @@ def _mono(*args, **kwargs):
                 new_rate.save()
 
 
-def _vkurse(*args, **kwargs):
+def _vkurse():
     url = 'http://vkurse.dp.ua/course.json'
     response = requests.get(url)
     r_json = response.json()
