@@ -5,8 +5,9 @@ CURRENCY_CHOICES = (
 )
 
 
-SRC_PB, SRC_MB = range(1, 3)
+SRC_PB, SRC_MB, SRC_VK = range(1, 4)
 SOURCE_CHOICES = (
     (SRC_PB, 'PrivatBank'),
     (SRC_MB, 'MonoBank'),
+    (SRC_VK, 'Vkurse'),
 )

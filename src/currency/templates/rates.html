@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Latest Rates{% endblock title%}
+
+{% block content %}
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Created</th>
+      <th scope="col">Currency</th>
+      <th scope="col">Sale</th>
+      <th scope="col">Buy</th>
+      <th scope="col">Source</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  {% for rate in object_list %}
+    <tr>
+      <th scope="row"> {{ rate.created }}  </th>
+      <td> {{ rate.get_currency_display }} </td>
+      <td> {{ rate.buy }} </td>
+      <td> {{ rate.sale }} </td>
+      <td> {{ rate.get_source_display }} </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+{% endblock content%}
