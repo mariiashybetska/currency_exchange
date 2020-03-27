@@ -173,8 +173,7 @@ EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 CELERY_BEAT_SCHEDULE = {
     'parse-rates': {
         'task': 'currency.tasks.parse_rates',
-        # 'schedule': crontab(minute='*/15'),
-        'schedule': crontab(minute='*/1'),
+        'schedule': crontab(minute='*/15'),
     }
 }
 

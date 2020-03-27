@@ -1,11 +1,12 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.http import HttpResponse, Http404
+from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, View
 from django.conf import settings
 
-from account.models import User, Contact
+from account.models import User, Contact, ActivationCode
 from account.tasks import send_email_async
+from account.forms import SignUpForm
 
 
 def smoke(request):
@@ -41,3 +42,23 @@ class ContactUS(CreateView):
         send_email_async.delay(subject, message, from_email, recipient_list)
         return super().form_valid(form)
 
+
+class SignUpView(CreateView):
+    template_name = 'SignUP.html'
+    queryset = Contact.objects.all()
+    success_url = reverse_lazy('index')
+    form_class = SignUpForm
+
+
+class Activate(View):
+    def get(self, request, activation_code):
+        ac = get_object_or_404(ActivationCode.objects.select_related('user'),
+                               code=activation_code, is_activated=False)
+
+        if ac.is_expired:
+            raise Http404
+
+        user = ac.user
+        user.is_active = True
+        user.save(update_fields=['is_active'])
+        return redirect('index')
