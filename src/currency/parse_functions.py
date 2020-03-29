@@ -91,5 +91,3 @@ def _vkurse():
             if last_rate is None or (new_rate.buy != last_rate.buy or new_rate.sale != last_rate.sale):
                 new_rate.save()
 
-
-

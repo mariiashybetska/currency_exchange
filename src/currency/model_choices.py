@@ -5,12 +5,9 @@ CURRENCY_CHOICES = (
 )
 
 
-SRC_PB, SRC_MB, SRC_VK, SRC_MTB, SRC_ALPHA, SRC_CONCORD = range(1, 7)
+SRC_PB, SRC_MB, SRC_VK = range(1, 4)
 SOURCE_CHOICES = (
     (SRC_PB, 'PrivatBank'),
     (SRC_MB, 'MonoBank'),
     (SRC_VK, 'Vkurse'),
-    (SRC_MTB, 'MTBbank'),
-    (SRC_ALPHA, 'AlphaBank'),
-    (SRC_CONCORD, 'ConcordBank'),
 )
