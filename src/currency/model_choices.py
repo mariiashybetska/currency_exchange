@@ -12,5 +12,5 @@ SOURCE_CHOICES = (
     (SRC_VK, 'Vkurse'),
     (SRC_MTB, 'MTBbank'),
     (SRC_ALPHA, 'AlphaBank'),
-    (SRC_CONCORD, 'ComcordBank'),
+    (SRC_CONCORD, 'ConcordBank'),
 )
