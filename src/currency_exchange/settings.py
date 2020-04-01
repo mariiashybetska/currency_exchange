@@ -45,11 +45,11 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'django_celery_beat',
 
-
     'account',
     'currency',
 
     'django_cleanup.apps.CleanupConfig',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [

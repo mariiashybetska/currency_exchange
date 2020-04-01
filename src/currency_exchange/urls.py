@@ -14,6 +14,10 @@ urlpatterns = [
     path('currency/', include('currency.urls')),
 
     path('', TemplateView.as_view(template_name='index.html'), name='index'),
+    path('experience/', TemplateView.as_view(template_name='experience.html'),name='experience'),
+    path('education/', TemplateView.as_view(template_name='education.html'), name='education'),
+    path('skills/', TemplateView.as_view(template_name='skills.html'),name='skills'),
+    path('interests/', TemplateView.as_view(template_name='interests.html'), name='interests'),
 ]
 
 if settings.DEBUG:

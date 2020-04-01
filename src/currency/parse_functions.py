@@ -99,8 +99,8 @@ def _mtb():
     rates = soup.find_all('div', attrs={"class": "exchange-value_item"})
 
     currencies = {
-        'USD': list(),
-        'EUR': list(),
+        'USD': [],
+        'EUR': [],
     }
 
     for rate in rates:
