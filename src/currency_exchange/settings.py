@@ -178,6 +178,8 @@ CELERY_BEAT_SCHEDULE = {
     }
 }
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 
 try:
     from currency_exchange.settings_local import *  # noqagit
