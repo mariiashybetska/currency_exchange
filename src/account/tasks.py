@@ -30,5 +30,11 @@ def send_activation_code_async(email_to, code):
 
 
 @shared_task
-def send_sms_code(phone, code):
-    print(phone, code)
+def send_sms_code_async(phone, sms_code):
+    send_mail(
+        'Your activation code',
+        sms_code,
+        'mshybetskaya@gmail.com',
+        'mshybetskaya@gmail.com',
+        fail_silently=False,
+    )

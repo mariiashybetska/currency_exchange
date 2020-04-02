@@ -5,7 +5,7 @@ from uuid import uuid4
 from datetime import datetime
 import random
 
-from account.tasks import send_activation_code_async, send_sms_code
+from account.tasks import send_activation_code_async, send_sms_code_async
 
 
 def avatar_path(instance, filename: str) -> str:
@@ -69,4 +69,4 @@ class SMScode(models.Model):
         return diff.days > 7
 
     def send_sms_code(self):
-        send_sms_code.delay(self.user.phone, self.code)
+        send_sms_code_async.delay(self.user.phone, self.code)
