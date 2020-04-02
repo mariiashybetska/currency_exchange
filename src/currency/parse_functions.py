@@ -188,8 +188,8 @@ def _concord():
             if len(c_rate) == 2:
                 rate_kwargs = {
                     'currency': currency,
-                    'sale': Decimal(c_rate[0].strip()),
-                    'buy': Decimal(c_rate[1].strip()),
+                    'sale': Decimal(c_rate[1].strip()),
+                    'buy': Decimal(c_rate[0].strip()),
                     'source': mch.SRC_CONCORD,
                 }
 
