@@ -3,9 +3,10 @@
 {% block title %}Contact Us{% endblock title%}
 
 {% block content %}
+{% load crispy_forms_tags %}
 <form action="{% url 'account:contact' %}" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    {{ form|crispy }}
     <input name="submit" type="submit">
 </form>
 {% endblock content%}
