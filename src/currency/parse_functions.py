@@ -116,8 +116,8 @@ def _mtb():
         }[key]
         rate_kwargs = {
             'currency': currency,
-            'sale': Decimal(value[0]),
-            'buy': Decimal(value[1]),
+            'sale': Decimal(value[1]),
+            'buy': Decimal(value[0]),
             'source': mch.SRC_MTB,
         }
         new_rate = Rate(**rate_kwargs)
