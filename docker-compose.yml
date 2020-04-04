@@ -5,8 +5,8 @@ services:
   # wsgi
   backend:
     build: .
-    command: python /srv/project/src/manage.py runserver 0:8000
-#    command: tail -f /dev/null
+    command: /bin/bash /srv/project/commands/wsgi/${SERVER}.sh
+    # python /srv/project/src/manage.py runserver 0:8000
     container_name: backend
     restart: always
     env_file:
