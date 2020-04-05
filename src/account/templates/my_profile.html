@@ -4,8 +4,22 @@
 
 {% block content %}
 {% load crispy_forms_tags %}
+
+<h2 class="text-center">changes</h2>
+
 <form method="post">
-    {{ form|crispy }}
-    <button type="submit">Submit</button>
+        {% csrf_token %}
+    <div>
+        <div class="col-6 p-0 mx-auto col-sm-6 col-md-5 col-lg-4">
+        {{ form.email|as_crispy_field }}
+        </div>
+        <div class="col-6 p-0 mx-auto col-sm-6 col-md-5 col-lg-4 ">
+        {{ form.username|as_crispy_field }}
+        </div>
+
+
+  </div>
+
+  <button type="submit" class="btn btn-light col-sm-6 col-md-5 col-lg-4 mt-5 mx-auto d-block">Changes</button>
 </form>
 {% endblock content%}
