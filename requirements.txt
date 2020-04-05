@@ -67,3 +67,5 @@ wcwidth==0.1.8
 zipp==2.1.0
 django-rest-swagger==2.1.2
 djangorestframework-simplejwt==4.4.0
+pytest-cov
+pytest-mock

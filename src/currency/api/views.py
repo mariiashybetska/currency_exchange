@@ -1,5 +1,5 @@
 from rest_framework import generics as g
-import django_filters as f
+from django_filters import rest_framework as f
 
 from currency.api.serializers import RateSerializer
 from currency.models import Rate
