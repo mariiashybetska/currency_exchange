@@ -1,19 +1,31 @@
 from django.views.generic.list import ListView, View
 from django.http import HttpResponse
+from django_filters.views import FilterView
+
+from urllib.parse import urlencode
 
 import csv
 
 from currency.models import Rate
+from currency.filters import RateFilter
 
 
-class RateListView(ListView):
+class RateListView(FilterView):
+    filterset_class = RateFilter
     model = Rate
     template_name = 'rates.html'
-    paginate_by = 20
+    paginate_by = 10
     ordering = ['-created']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        query_params = dict(self.request.GET.items())
+
+        if 'page' in query_params:
+            del query_params['page']
+
+        context['query_params'] = urlencode(query_params)
+
         return context
 
 

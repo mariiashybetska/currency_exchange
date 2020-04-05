@@ -3,14 +3,21 @@
 {% block title %}Latest Rates{% endblock title%}
 
 {% block content %}
+{% load crispy_forms_tags %}
+<form method="get">
+{{ filter.form|crispy }}
+<button type="submit" class="btn btn-primary">
+<span class="glyphicon glyphicon-search"></span> Search
+</button>
+</form>
 
 <table class="table table-striped">
   <thead>
     <tr>
       <th scope="col">Created</th>
       <th scope="col">Currency</th>
-      <th scope="col">Sale</th>
       <th scope="col">Buy</th>
+      <th scope="col">Sale</th>
       <th scope="col">Source</th>
     </tr>
   </thead>
@@ -27,5 +34,7 @@
   {% endfor %}
   </tbody>
 </table>
+
+{% include 'includes/pagination.html' %}
 
 {% endblock content%}
