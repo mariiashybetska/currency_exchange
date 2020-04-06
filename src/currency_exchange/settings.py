@@ -19,6 +19,8 @@ from django.urls import reverse, reverse_lazy
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 's=7$c1s-&8f9*9u^1!s9fif*_^vo3w=8%j@sncl2gthb*+j(tx'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -45,6 +47,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'rest_framework',
     'rest_framework_swagger',
+    'django_filters',
 
     'account',
     'currency',

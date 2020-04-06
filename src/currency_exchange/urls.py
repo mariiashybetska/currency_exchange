@@ -21,9 +21,11 @@ urlpatterns = [
 
     # API
     path('api/v1/currency/', include('currency.api.urls')),
+    path('api/v1/account/', include('account.api.urls')),
     path('api/v1/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/v1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
+    # CV
     path('', TemplateView.as_view(template_name='index.html'), name='index'),
     path('experience/', TemplateView.as_view(template_name='experience.html'),name='experience'),
     path('education/', TemplateView.as_view(template_name='education.html'), name='education'),
