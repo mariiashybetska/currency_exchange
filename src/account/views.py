@@ -20,7 +20,7 @@ def smoke(request):
 class MyProfile(UpdateView):
     template_name = 'my_profile.html'
     queryset = User.objects.filter(is_active=True)
-    fields = ('email', )
+    fields = ('email', 'username')
     success_url = reverse_lazy('index')
 
     def get_queryset(self):

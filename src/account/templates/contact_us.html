@@ -3,10 +3,26 @@
 {% block title %}Contact Us{% endblock title%}
 
 {% block content %}
+
 {% load crispy_forms_tags %}
+
 <form action="{% url 'account:contact' %}" method="post">
     {% csrf_token %}
-    {{ form|crispy }}
-    <input name="submit" type="submit">
+<h2 class="text-center">Contact form</h2>
+
+<div>
+
+      <div class="col-6 p-0 mx-auto col-sm-6 col-md-5 col-lg-4">
+        {{ form.email|as_crispy_field }}
+      </div>
+        <div class="col-6 p-0 mx-auto col-sm-6 col-md-5 col-lg-4">
+        {{ form.title|as_crispy_field }}
+      </div>
+        <div class="col-6 p-0 mx-auto col-sm-6 col-md-5 col-lg-4">
+        {{ form.body|as_crispy_field }}
+      </div>
+
+</div>
+    <button type="submit"  class="btn btn-light col-sm-6 col-md-5 col-lg-4 mt-5 mx-auto d-block">Send</button>
 </form>
 {% endblock content%}

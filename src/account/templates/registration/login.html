@@ -4,9 +4,19 @@
 
 {% block content %}
 {% load crispy_forms_tags %}
+
+<h2 class="text-center">Login</h2>
+
 <form method="post">
   {% csrf_token %}
-  {{ form|crispy }}
-  <button type="submit">Login</button>
+  <div>
+      <div class="col-6 p-0 mx-auto col-sm-6 col-md-5 col-lg-4 ">
+        {{ form.username|as_crispy_field }}
+      </div>
+      <div class="col-6 p-0 mx-auto col-sm-6 col-md-5 col-lg-4">
+        {{ form.password|as_crispy_field }}
+      </div>
+  </div>
+  <button type="submit" class="btn btn-light col-6 col-sm-6 col-md-5 col-lg-4 mt-5 mx-auto d-block">SingIn</button>
 </form>
 {% endblock %}
