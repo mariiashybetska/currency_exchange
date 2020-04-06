@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from django import forms
 
-from account.models import User
+from account.models import User, SMScode
 
 
 class SignUpForm(ModelForm):
@@ -10,7 +10,7 @@ class SignUpForm(ModelForm):
 
     class Meta:
         model = User
-        fields = ('email', 'username', 'password', 'password2')
+        fields = ('email', 'username', 'password', 'password2', 'phone')
 
     def clean(self):
         cleaned_data = super().clean()
@@ -29,6 +29,10 @@ class SignUpForm(ModelForm):
         activation_code.send_activation_code()
         return user
 
+
+class ActivateForm(forms.Form):
+    sms_code = forms.CharField()
+    user_id = forms.CharField(widget=forms.HiddenInput)
 
 
 
