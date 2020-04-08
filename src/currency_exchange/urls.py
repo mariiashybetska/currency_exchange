@@ -31,6 +31,7 @@ urlpatterns = [
     path('education/', TemplateView.as_view(template_name='education.html'), name='education'),
     path('skills/', TemplateView.as_view(template_name='skills.html'),name='skills'),
     path('interests/', TemplateView.as_view(template_name='interests.html'), name='interests'),
+
 ]
 
 # SWAGGER

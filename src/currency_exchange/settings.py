@@ -240,6 +240,9 @@ SWAGGER_SETTINGS = {
     },
 }
 
+
+
+
 try:
     from currency_exchange.settings_local import *  # noqagit
 except ImportError:

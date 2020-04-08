@@ -135,4 +135,3 @@ settings_local.py
 run/
 static_content/
 startbootstrap-resume-gh-pages/
-src/currency/test.py
