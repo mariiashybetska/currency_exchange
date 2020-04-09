@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Rate menu{% endblock title%}
+
+{% block content %}
+
+<section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="education">
+    <div class="w-100">
+        <h2 class="mb-5">Rate options</h2>
+
+        <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
+            <div class="resume-content">
+                <h3 class="mb-0">Latest rates</h3>
+                <div class="subheading mb-3">Actual currency exchange rates of USD, EUR</div>
+                <a href="{% url 'currency:latest-rates' %}"><p>Go to actual rates</p></a>
+            </div>
+
+        </div>
+        <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
+            <div class="resume-content">
+                <h3 class="mb-0">Archival rates</h3>
+                <div class="subheading mb-3">Archival exchange rates with filters</div>
+                <a href="{% url 'currency:rates' %}"><p>Go to archive rates</p></a>
+            </div>
+        </div>
+
+         <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
+            <div class="resume-content">
+                <h3 class="mb-0">Download rates</h3>
+                <div class="subheading mb-3">Download archival rates as csv file</div>
+                <a href="{% url 'currency:download-rates' %}"><p>Dowload</p></a>
+            </div>
+
+        </div>
+
+
+    </div>
+</section>
+{% endblock content%}
