@@ -4,8 +4,31 @@
 
 {% block content %}
 
-{% for rate in rates %}
-  <p> {{ rate }} </p>
-{% endfor%}
+<div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Created</th>
+      <th scope="col">Currency</th>
+      <th scope="col">Buy</th>
+      <th scope="col">Sale</th>
+      <th scope="col">Source</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  {% for rate in rates %}
+    <tr>
+      <th scope="row"> {{ rate.created.date }}  </th>
+      <td> {{ rate.currency }} </td>
+      <td> {{ rate.buy }} </td>
+      <td> {{ rate.sale }} </td>
+      <td> {{ rate.source }} </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+
 
 {% endblock content%}

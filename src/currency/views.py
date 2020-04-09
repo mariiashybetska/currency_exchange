@@ -51,8 +51,8 @@ class LatestRates(TemplateView):
                     rate = Rate.objects.filter(source=source, currency=currency).order_by('created').last()
                     if rate:
                         rate_dict = {
-                            'currency': rate.currency,
-                            'source': rate.source,
+                            'currency': rate.get_currency_display,
+                            'source': rate.get_source_display,
                             'buy': rate.buy,
                             'sale': rate.sale,
                             'created': rate.created,

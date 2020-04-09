@@ -59,13 +59,10 @@
           <a class="nav-link js-scroll-trigger" href="{% url 'interests' %}">Interests</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="{% url 'currency:download-rates' %}">Download rates</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="{% url 'account:contact' %}">Contact Us</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'currency:rates' %}">Latest rates</a>
+          <a class="nav-link" href="{% url 'currency:rate-menu' %}">Rate</a>
         </li>
         {% if request.user.is_authenticated %}
         <li class="nav-item">
