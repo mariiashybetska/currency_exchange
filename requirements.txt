@@ -11,7 +11,7 @@ chardet==3.0.4
 coreapi==2.3.3
 coreschema==0.0.4
 coverage==5.0.4
-cryptography==2.9
+cryptography==3.2
 decorator==4.4.1
 Django==2.2.10
 django-appconf==1.0.4
